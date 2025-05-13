@@ -10,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("MySql");
 builder.Services.AddTransient<RepositoryPersonajes>();
 builder.Services.AddDbContext<PersonajesContext>(options => options.UseMySQL(connectionString));
-
+builder.Services.AddCors(p => p.AddPolicy("corsenabled", options =>
+{
+    options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 /**********************************************************************************************/
 
 builder.Services.AddControllers();
@@ -27,6 +30,7 @@ if (app.Environment.IsDevelopment())
 /**********************************************************************************************/
 app.MapScalarApiReference();
 app.MapOpenApi();
+app.UseCors("corsenabled");
 /**********************************************************************************************/
 
 app.UseHttpsRedirection();
