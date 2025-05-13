@@ -29,8 +29,8 @@ if (app.Environment.IsDevelopment())
 }
 /**********************************************************************************************/
 app.MapScalarApiReference();
-app.MapOpenApi();
 app.UseCors("corsenabled");
+app.MapOpenApi();
 /**********************************************************************************************/
 
 app.UseHttpsRedirection();
